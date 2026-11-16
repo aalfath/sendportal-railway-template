@@ -8,3 +8,4 @@ First release of the Railway template.
 - One service runs Apache + PHP, Horizon and the scheduler under supervisord; Railway Postgres and Redis.
 - The first admin and workspace are created from `SENDPORTAL_ADMIN_EMAIL` and `SENDPORTAL_ADMIN_PASSWORD`, so the `/setup` wizard is never open to visitors.
 - Migrations run on every start.
+- If Apache, Horizon or the scheduler stops for good, the container exits so Railway restarts it; only the prefork MPM is kept enabled.

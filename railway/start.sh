@@ -32,6 +32,13 @@ if [ -z "${APP_KEY:-}" ]; then
   exit 1
 fi
 
+# Apache with mod_php needs the prefork MPM only. Some builders leave a second
+# MPM enabled ("AH00534: More than one MPM loaded"), so make sure at start.
+for m in /etc/apache2/mods-enabled/mpm_*.load; do
+  case "$m" in */mpm_prefork.load) ;; *) rm -f "$m" "${m%.load}.conf"; echo "Disabled $(basename "$m" .load)";; esac
+done
+[ -e /etc/apache2/mods-enabled/mpm_prefork.load ] || a2enmod -q mpm_prefork
+
 # Laravel's caches must be rebuilt from this container's variables.
 su -s /bin/sh www-data -c 'php artisan optimize:clear' >/dev/null
 

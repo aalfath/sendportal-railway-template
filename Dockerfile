@@ -24,7 +24,8 @@ RUN set -eux; \
     apt-get purge -y --auto-remove libicu-dev libzip-dev libgmp-dev; \
     apt-get install -y --no-install-recommends libicu76 libzip5 libgmp10; \
     rm -rf /var/lib/apt/lists/*; \
-    a2enmod rewrite headers remoteip; \
+    a2dismod -f mpm_event mpm_worker || true; \
+    a2enmod mpm_prefork rewrite headers remoteip; \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -59,7 +60,8 @@ COPY railway/php.ini $PHP_INI_DIR/conf.d/zz-sendportal.ini
 COPY railway/supervisord.conf /etc/supervisor/conf.d/sendportal.conf
 COPY railway/create-admin.php /opt/sendportal/create-admin.php
 COPY railway/start.sh /usr/local/bin/sendportal-start
-RUN chmod +x /usr/local/bin/sendportal-start
+COPY railway/fatal-listener.sh /usr/local/bin/sendportal-fatal-listener
+RUN chmod +x /usr/local/bin/sendportal-start /usr/local/bin/sendportal-fatal-listener
 
 ENV PORT=8080
 EXPOSE 8080
