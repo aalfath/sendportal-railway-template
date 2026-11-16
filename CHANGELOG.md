@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.0.0.1-r2 (2026-11-16)
+
+- README: Deploy on Railway button for the published template (`sendportal-1`). No change to the app or the image.
+
 ## 4.0.0.1-r1 (2026-11-16)
 
 First release of the Railway template.

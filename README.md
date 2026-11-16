@@ -1,5 +1,7 @@
 # SendPortal on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/sendportal-1?utm_medium=integration&utm_source=button&utm_campaign=sendportal)
+
 One-click [SendPortal](https://github.com/mettle/sendportal) for [Railway](https://railway.com): open-source, self-hosted email marketing (newsletters, campaigns, subscribers, segments, templates and an API), sending through your own Amazon SES, SendGrid, Mailgun, Postmark, Mailjet, Postal or SMTP account.
 
 ## What the template deploys
